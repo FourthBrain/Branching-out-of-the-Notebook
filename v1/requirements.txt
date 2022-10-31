@@ -1,0 +1,11 @@
+diffusers==0.6.0
+fastapi==0.85.1
+numpy==1.23.4
+opencv_python==4.6.0.66
+Pillow==9.2.0
+starlette==0.20.4
+torch==1.12.1
+uvicorn==0.19.0
+transformers
+opencv_python
+python-multipart
