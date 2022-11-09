@@ -196,6 +196,15 @@ Now that you've tested your app locally, it's time to add a feature branch do so
 
      ![image](https://user-images.githubusercontent.com/19699016/200869575-26297736-6236-477c-a7fa-da61a3139fb3.png)
      
+5. After review (usually the reviewer will do this step), you can finally merge your changes into the trunk by clicking the green "Merge pull request" button! It will ask you to confirm, and leave additional comments - which should absolutely do!
+
+     ![image](https://user-images.githubusercontent.com/19699016/200870756-34e2eb59-3440-4084-9fcf-f15fb0950a3c.png)
+     
+6. Afterwards, it will prompt you if you want to delete the branch. It is dependent on your organization if you will or not - but it is usually considered good practice to delete "hanging" branches!
+
+     ![image](https://user-images.githubusercontent.com/19699016/200871153-5c699924-32fa-4d61-99a2-c15dbac603fa.png)
+
+     
 
 ## :tada: Conclusion!
 
