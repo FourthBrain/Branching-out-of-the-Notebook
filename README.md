@@ -113,5 +113,97 @@ Once you've caught up using those you'll have the base knowledge you'll need to 
      
 8. Head on over to [localhost:5000/docs](http://localhost:5000/docs) to play around with the new model! (CPU inference can take a long time, depending on your hardware. ~3-5min.)
 
+## 🌳 Branching Out!
 
+### Local Developement on a Feature Branch
+
+Now that you've tested your app locally, it's time to add a feature branch do some work, and get ready to merge!
+
+1. First things first we'll want to make a new branch called `feature_branch_img2img`, you'll want to use the command:
+
+     ```console
+     git checkout -b feature_branch_img2img
+     ```
+2. Once you have that done, you can check to make sure you're on the correct branch using the command: 
+
+     ```conole
+     git branch
+     ```
+
+3. After confirming you're on the correct branch - you can finally add your feature! We're going to add the `img2img` endpoint to our FastAPI application (located in `v1/app/app.py`, using the following code:
+
+
+     ```python
+     # create a img2img route
+     @app.post("/img2img")
+     def img2img(prompt: str, img: UploadFile = File(...)):
+         device = get_device()
+         img2img_pipe = StableDiffusionImg2ImgPipeline.from_pretrained("../model")
+         img2img_pipe.to(device)
+
+         img = Image.open(img.file).convert("RGB")
+         init_img = img.resize((768, 512))
+
+         # generate an image
+         img = img2img_pipe(prompt, init_img).images[0]
+
+         img = np.array(img)
+         img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+         res, img = cv2.imencode(".png", img)
+
+         del img2img_pipe
+         if torch.cuda.is_available():
+             torch.cuda.empty_cache()
+
+         return StreamingResponse(io.BytesIO(img.tobytes()), media_type="image/png")
+     ```
+     
+4. Once you have updated your `app.py`, you can once again test it using the processed outlined above!
+
+5. Now that we've made the changes - we're ready to stage, and then commit them! First up, let's stage our changes using:
+
+     ```console
+     git add .
+     ```
+     
+6. Next up, we'll commit the changes with a useful/helpful message using:
+
+     ```console
+     git commit -m "<YOUR HELPFUL MESSAGE HERE>"
+     ```
+     
+7. Now that we've commited those changes - we need to push them to our remote repository. You'll notice that we're setting a new upstream in the upcoming command, that's because while the branch we created on our local exists; the remote is not aware of it! So we need to create the branch on the remote, as well! We can do this in one step with the following command:
+
+     ```console
+      git push --set-upstream origin feature_branch_img2img
+      ```
+      
+8. With that, you're all done on the local side! The only thing left to do is navigate to your remote repo on GitHub.com!
+
+### Merging into the Trunk Using a Pull Request!
+
+1. When you arrive at your repository on GitHub.com, you should notice a brand new banner is present:
+
+     ![image](https://user-images.githubusercontent.com/19699016/200868492-32df4085-f280-4ef5-bf1d-dbf9bf734fdb.png)
+     
+2. Once you click on the green "Compare & pull request" button - you'll be brought to the pull request screen where you'll want to leave an insightful comment, and add an appropriate title (it will use your commit message as a default title!)
+
+     ![image](https://user-images.githubusercontent.com/19699016/200869067-8be34741-b382-4356-9760-e7c57eec7dc2.png)
+
+3. Once you've done that, you can click the green "Create pull request" button!
+
+4. After creating the pull request, you'll see there's an option to assign reviewers - which you can do by clicking the cog wheel icon, and either selecting (or typing) the name of your reviewer! (Remember: they have to be a collaborator on the repository!)
+
+     ![image](https://user-images.githubusercontent.com/19699016/200869575-26297736-6236-477c-a7fa-da61a3139fb3.png)
+     
+
+## :tada: Conclusion!
+
+With that, you're all done! 
+
+To recap, we've: Built a web-app based on the Diffusers library, "Dockerized" it, created a feature branch, added a feature, pushed our branch to GitHub, and created a PR!
+
+
+
+     
 
