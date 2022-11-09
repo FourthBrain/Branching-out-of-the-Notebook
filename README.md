@@ -41,7 +41,7 @@ Once you've caught up using those you'll have the base knowledge you'll need to 
 
 ### Creating a repository & cloning app content
 
-  1. First steps, let's create a repository on GitHub! You can follow [these](https://docs.github.com/en/get-started/quickstart/create-a-repo) instructionsMake sure to include a README.md, a License and a `.gitignore`
+  1. First steps, let's create a repository on GitHub! You can follow [these](https://docs.github.com/en/get-started/quickstart/create-a-repo) instructions to create it! Make sure to include a README.md, a License and a `.gitignore`
   2. Now, we're going to clone our repository from GitHub using the command: 
   
       ```console
